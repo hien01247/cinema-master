@@ -310,12 +310,12 @@ nav ul li a{
 .alert-info strong{
   color: #fdfdfd;
 }
-  .three-col{
+.three-col{
     float: left;
     width: 29%;
     padding: 0 2%;
     text-align: center;
-  }
+}
   .two-col{
     float: left;
     width: 43%;
@@ -392,7 +392,10 @@ nav ul li a{
     margin:0px 10px;
 }
 .end{
-  margin-bottom: 290%;
+  margin-bottom: 250%;
+}
+.end1{
+  margin-bottom: 150%;
 }
 /* Trang Home */
 
@@ -440,10 +443,10 @@ nav ul li a{
   margin: 0px 20px;
   z-index: 1;
 }
-.overlay h4{
+.hot-movie .overlay h4{
   margin-top: 200px;
 }
-.overlay{
+.hot-movie .overlay{
   position: absolute; 
   bottom: 20px;
   left:48px; 
@@ -459,11 +462,11 @@ nav ul li a{
   z-index: 2;
 }
 
-.three-col:hover .overlay {
+.hot-movie .three-col:hover .overlay {
   opacity: 1;
   font-weight: bold;
 }
-.overlay a{
+.hot-movie .overlay a{
   display: inline-block;
   font-size: 13px;
   text-decoration: none;
@@ -474,7 +477,7 @@ nav ul li a{
   height: 35px;
   line-height: 256%;
 }
-.overlay .button{
+.hot-movie .overlay .button{
   background-color: #ffffff00;
   font-size: 13px;
   text-decoration: none;
@@ -487,10 +490,14 @@ nav ul li a{
   font-weight: bold;
 }
 
-.overlay .button:hover, .overlay a:hover{
+.hot-movie .overlay .button:hover, .hot-movie .overlay a:hover{
   background-color:#3282b8 ;  
 }
-
+.hot-movie .overlay p{
+  font-size: 13px;
+  padding: 10px 15px;
+  font-weight: 500;
+}
 .next{
   width: 150px;
   height: 50px;
@@ -512,14 +519,14 @@ nav ul li a{
 }
 .header{
   width: 100%;
-  height: 100px;
+  height: 90px;
   background-color: #0f4c75;
   margin-bottom: 20px;
   margin-top: 0px;
 }
 .header h1{
   font-weight: 500;
-  line-height: 100px;
+  line-height: 90px;
   margin-top: 0px;
 }
 
@@ -728,4 +735,351 @@ nav ul li a{
 }
 .table2 td{
   padding:10px 10px;
+}
+
+/* Trang chọn rạp */
+.pick-hall .image{
+  display: inline-block;
+  width: 45%;
+  position: relative;
+  padding-bottom: 20px;
+  padding-left: 30px;
+}
+.pick-hall img{
+  width: 300px;
+  height: 300px;
+  margin: 0px 20px;
+  z-index: 1;
+}
+.pick-hall .overlay h4{
+  margin: 50px 10px;
+}
+.pick-hall .overlay{
+  position: absolute; 
+  bottom: 20px;
+  left:69px; 
+  background: rgba(0, 0, 0, 0.712); 
+  color: #f1f1f1; 
+  width: 73.5%;
+  height: 94%;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  z-index: 2;
+}
+
+.pick-hall .image:hover .overlay {
+  opacity: 1;
+  font-weight: bold;
+}
+.pick-hall .image .overlay .button{
+  background-color: #ffffff00;
+  font-size: 13px;
+  text-decoration: none;
+  color:#f1f1f1;
+  border: 1px solid #3282b8;
+  padding: 0px;
+  width: 90px;
+  height: 37px;
+  margin-top: 2px;
+  font-weight: bold;
+}
+.pick-hall .overlay a{
+  color: #EEFBFB;
+  text-decoration: none;
+}
+
+/* Trang suất chiếu */
+.show{
+  width: 100%;
+  border: 1px solid #0f4c75;
+}
+
+.show .date{
+  width: 100%;
+  background-color: #0f4c75;
+  height:auto;
+}
+
+.show .date h4{
+  margin-top:0;
+  padding: 10px 0px;
+}
+
+.show .time{
+  padding:10px 10px;
+  text-align: left;
+}
+
+.show .time button{
+  background-color: #0000009d;
+}
+
+.show .time button:hover{
+  background-color: #0f4c75;
+}
+
+/* Trang mua vé */
+.table-dv{
+  width:100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.table-dv td, .table-dv th{
+  border-bottom:1px solid #0f4c75;
+  padding: 15px 5px;
+}
+
+.table-dv input[type=number]{
+  width: 50px;
+}
+
+.table-dv input[type=text]{
+  width: 300px;
+  height:31px;
+  font-size: 18px;
+}
+
+.table-p{
+  margin-top: 100px;
+  width: 100%;
+  text-align: left;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.table-p th{
+  border-bottom: 1px solid #0f4c75;
+}
+.table-p select, .table-p input[type=text]{
+  width: 100%;
+  height: 31px;
+  font-size: 18px;
+}
+
+.cancel{
+  width: 180px;
+  height: 38px;
+  background-color: #0F4C75;
+  border: 1px solid #0F4C75;
+  color:#f1f1f1;
+  display: inline-block;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 37px;
+}
+.cancel:hover{
+  background-color: rgba(0, 0, 0, 0.514);
+}
+
+/* Trang chọn ghế */
+.container{
+  text-align: left;
+  color:#f1f1f1;
+  margin-bottom: 20px;
+}
+.screen{
+	text-align: center;
+  padding: 0.8em;
+  font-size: 18px;
+	color: black;
+	background-color: tomato;
+  font-weight: 600;
+  letter-spacing: 7px;
+  word-spacing: 10px;
+}
+
+button.btn{
+  min-width: 25px;
+  height:30px;
+  border:1px solid black;
+  
+}
+button.btn-pick{
+  background-color: rgb(19, 190, 19);
+}
+button.btn-empty{
+  background-color: rgb(255, 255, 255);
+}
+button.btn-picked{
+  background-color: rgb(241, 11, 11);
+}
+
+#seatsBlock td{
+  color:#f1f1f1;
+}
+
+.container input[type=text]{
+  display: inline-block;
+  width: 300px;
+  height:33px;
+  font-size: 18px;
+  color:#111;
+}
+#selectseat {
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+  width: auto !important;
+  width: 100%;
+  max-width: 100%;
+}
+
+.container td {
+  margin: 0;
+  padding: 10px;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  width: 40px;
+  font-weight: 600;
+  font-size: 1em;
+  padding-top: 7px;
+  height: 24px;
+}
+
+.container input[type=checkbox] {
+  width: 15px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.container input[type=checkbox]:before {
+  content: "";
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  border: 1px solid #ff9800;
+  box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);
+  -moz-box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);
+  -webkit-box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);
+  background-color: #ffffff;
+}
+
+.container input[type=checkbox]:checked:before {
+  background-color: Green;
+  font-size: 15px;
+}
+
+.container .seats {
+  border: 1px solid red;
+  background: yellow;
+}
+
+
+.container .redBox:checked:before {
+background-color: Red !important;
+font-size: 15px;
+}
+
+/* Trang thanh toán */
+img.pay-img{
+  width: 300px;
+}
+p.pay-name{
+  font-size: 40px;
+}
+.pay-table{
+  width: 400px;
+  margin:20px auto;
+}
+.pay-table td{
+  text-align: left;
+}
+
+/* Trang profile */
+.info{
+  width: 90%;
+  margin-left: 150px;
+}
+.info td{
+  text-align: left;
+  width: 200px;
+}
+
+.info input[type=text], .info input[type=tel],.info input[type=number],.info input[type=password]
+{
+  width: 400px;
+  height: 30px;
+}
+
+.heading{
+  font-size: 22px;
+  text-align: left;
+  margin-left: 150px;
+}
+
+.list li{
+  list-style-type: none;
+  display: block;
+  background-color: #0f4c75;
+  padding:30px 15px;
+}
+.list a{
+
+  text-decoration: none;
+  color:#fdfdfd;
+}
+
+.list .active{
+  background-color: #111;
+}
+
+.list li:hover{
+  background-color: #111;
+}
+
+.rap{
+  width: 100%;
+}
+
+.rap td{
+  width: 50%;
+}
+.rap img{
+  width: 90%;
+  height: 500px;
+  padding-left: 20px;
+}
+.rap .head{
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 0;
+  color: #089cff;
+}
+td.info-rap{
+  text-align: left;
+}
+.rap h4{
+  font-size: 20px;
+  font-weight: 700;
+  color: #089cff;
+}
+
+.rap p{
+  padding-right: 100px;
+}
+
+/* .threecol{
+  float: left;
+    width: 29%;
+    padding: 0 2%;
+    text-align: center;
+}
+.content .threecol img{
+  width: 80px;
+  height: 80px;
+} */
+
+table.contact{
+  width: 80%;
+  margin: auto;
+}
+.contact img{
+  width: 100px;
 }

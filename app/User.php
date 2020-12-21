@@ -28,11 +28,7 @@ class User extends Authenticatable
         'password', 'remember_token'
     ];
 
-    public function nhan_vien(){
-        return $this->hasMany('App\nhan_vien','matk_nv','id');
-    }
-
-    public function khach_hang(){
-        return $this->hasMany('App\khach_hang','matk_kh','id');
+    public function hoa_don(){
+        return $this->hasMany('App\hoa_don','makh','id');
     }
 }

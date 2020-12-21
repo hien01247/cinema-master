@@ -10,9 +10,8 @@
     </div>
 
     <div class="mySlides fade">
-        <img src="https://cinestar.com.vn/pictures/z2161740555616_cf6d683f88aa9447af57b89917e84acb.jpg" style="width:100%">
+        <img src="https://www.cinestar.com.vn/pictures/z2161740555387_88fc044837bea7695ee9ec8320a39cef.jpg" style="width:100%">
     </div>
-    <br/><br/><br/>
     <div style="text-align:center">
         <span class="dot active" onclick="currentSlide(1)"></span>
         <span class="dot" onclick="currentSlide(2)"></span>
@@ -74,29 +73,6 @@
         <a href="{{route('phim-sap-chieu')}}">XEM THÊM</a>
     </div>
   </div>
-
-        <!-- Carousel End-->
-        <script type="text/javascript">
-          var x = document.getElementById("sapchieu");
-          x.style.display = "none";
-
-          function hienPhimsapchieu() {
-            var element = document.getElementById("title2");
-            element.classList.add("change");
-            var element = document.getElementById("title1");
-            element.classList.remove("change");
-            $("#dangchieu").hide();
-            $("#sapchieu").show();
-          }
-
-          function hienPhimdangchieu() {
-            var element = document.getElementById("title1");
-            element.classList.add("change");
-            var element = document.getElementById("title2");
-            element.classList.remove("change");
-            $("#sapchieu").hide();
-            $("#dangchieu").show();
-          }
-        </script>
+         
 </div>
 @endsection

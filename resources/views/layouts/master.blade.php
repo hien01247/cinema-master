@@ -22,13 +22,13 @@
                 </div>
             </li> 
             <li><a href="{{route('mua-ve-menu')}}">Đặt vé</a></li>
-            <li><a href="#">Hệ thống rạp</a></li>
-            <li><a href="#">Khuyến mãi</a></li>
-            <li><a href="#">Liên hệ</a></li>
+            <li><a href="{{route('he-thong-rap')}}">Hệ thống rạp</a></li>
+            <li><a href="{{route('khuyen-mai')}}">Khuyến mãi</a></li>
+            <li><a href="{{route('contact')}}">Liên hệ</a></li>
         </ul>
     </nav>
         <div class="search-form"> 
-        <form action="" method="post">
+        <form action="{{route('search')}}" method="get">
             <input type="text" name="search" placeholder="Tìm kiếm...">
             <input type="submit" value="submit">
         </form>
@@ -37,11 +37,9 @@
         @if(Auth::check())
         <div>
             <a href="{{route('profile')}}" class="profile-btn">
-                <i class="fa fa-user"></i>
                 | Tài khoản
             </a>
             <a href="{{route('dang-xuat')}}" class="signout-btn">
-                <i class="fa fa-sign-out"></i>
                 Đăng xuất
             </a>
         </div>
@@ -49,7 +47,6 @@
         <div>
             <a href="javascript:void(null);" id="dnhap">| Đăng nhập</a>
             <a href="dang-ky" class="signup-btn">
-                <i class="fa fa-user"></i>
                 Đăng ký
             </a>
         </div>
@@ -58,24 +55,24 @@
     <div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>            
-        <div class="login" id="wpuf-login-form">       
+        <div class="login">       
             <form action="{{route('dang-nhap')}}" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <p>
-                <label for="wpuf-user_login">Email</label><br>
+                <label >Email</label><br>
                 <input type="text" name="email" id="email_modal" class="input" size="20" required/>
             </p>
             <p>
-                <label for="wpuf-user_pass">Password</label><br>
+                <label >Mật khẩu</label><br>
                 <input type="password" name="password" id="password_modal" class="input" size="20" required/>
             </p>   
-            <p class="forgetmenot">
-                <input name="rememberme" type="checkbox" id="wpuf-rememberme" value="forever" />
-                <label for="wpuf-rememberme">Remember Me</label>
+            <p>
+                <input name="rememberme" type="checkbox" value="forever" />
+                <label>Ghi nhớ đăng nhập</label>
             </p>
-            <button type="submit" class="btn btn-template-outlined">
-                <i class="fa fa-sign-in"></i>Đăng nhập</button>
-            <p><a href="https://www.madhatgirls.com/apply">Register</a> 
+            <button type="submit">
+                Đăng nhập</button>
+            <p><a href="{{route('dang-ky')}}">Đăng kí ngay</a> 
             </form>
         </div>
     </div>

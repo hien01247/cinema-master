@@ -9,16 +9,16 @@ class ghe_ngoi extends Model
     //
     protected $table = "ghe_ngoi";
 
-    public function rap_chieu(){
-        return $this->belongsTo('App\rap_chieu','marap','maghe');
-    }
+    // public function rap_chieu(){
+    //     return $this->belongsTo('App\rap_chieu','marap','maghe');
+    // }
 
     public function ve(){
-        return $this->hasMany('App\ve','maghe','maghe');
+        return $this->belongsTo('App\ve','maghe','maghe');
     }
 
-    public function phong_chieu(){
-        return $this->belongsTo('App\phong_chieu','maphong','maghe');
+    public function suat_chieu(){
+        return $this->belongsTo('App\suat_chieu','masuatchieu','masuatchieu');
     }
 
     public function loai_ghe(){

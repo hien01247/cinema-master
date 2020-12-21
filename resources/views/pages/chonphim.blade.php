@@ -32,17 +32,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($phim as $phim)
                                 <tr>
-                                    <td><img src="{{$phim->hinhanh}}" alt="Poster phim"></td>
+                                    <td><img src="{{$phimDaChon->first()->hinhanh}}" alt="Poster phim"></td>
                                     <td colspan="2">
-                                        <a href="{{route('chi-tiet',$phim->maphim)}}" target="_blank"><b>{{$phim->tenphim}}</b></a>
+                                        <a href="{{route('chi-tiet',$phimDaChon->first()->maphim)}}" target="_blank"><b>{{$phimDaChon->first()->tenphim}}</b></a>
                                     </td>
-                                    <td>{{$phim->doituong}}</td>
-                                    <td>{{$phim->thoiluong}}</td>
-                                    <td><button type="submit" name="idphim" value="{{$phim->maphim}}">Chọn</button></td>
+                                    <td>{{$phimDaChon->first()->doituong}}</td>
+                                    <td>{{$phimDaChon->first()->thoiluong}}</td>
+                                    <td><button type="submit" name="idphim" value="{{$phimDaChon->first()->maphim}}" class="btn btn-template-main">Chọn</button></td>
                                 </tr>
-                            @endforeach
                         </tbody>
             </table>
             <div class="back">

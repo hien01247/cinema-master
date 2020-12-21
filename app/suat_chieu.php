@@ -16,10 +16,10 @@ class suat_chieu extends Model
     }
 
     public function ve(){
-        return $this->hasMany('App\ve','masuatchieu','masuatchieu');
+        return $this->belongsTo('App\ve','masuatchieu','masuatchieu');
     }
 
-    public function rap_chieu(){
-        return $this->belongsTo('App\rap_chieu','marap','masuatchieu');
+    public function ghe(){
+        return $this->hasMany('App\suat_chieu','masuatchieu','masuatchieu');
     }
 }

@@ -42,12 +42,14 @@
             <input name="cmnd" id="cmnd" type="number" size="40" placeholder="Xin nhập đúng chứng minh thư"><br/>
             <input type="checkbox" name="agree" id="argree" /> Tôi đã đọc, hiểu và đồng ý với các
                     <strong>
-                        <a href="faq">điều khoản</a> và 
+                       điều khoản  
                     </strong>
+                    và
                     <strong>
-                        <a href="faq">chính sách bảo mật</a>  của chúng tôi.
-                    </strong><br/>                         
-    
+                        chính sách bảo mật 
+                    </strong>  
+                    của chúng tôi.                      
+        <br/>
         <button type="submit" class="btn btn-template-outlined">
             <i class="fa fa-user-md"></i> Đăng ký
         </button>

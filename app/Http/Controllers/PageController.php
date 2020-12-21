@@ -7,18 +7,18 @@ use Illuminate\Support\Facades\DB;
 use Hash;
 use App\User;
 use App\phim;
-use App\khuyen_mai;
 use App\rap_chieu;
 use App\suat_chieu;
 use App\khung_gio;
+use App\khuyen_mai;
 use App\dien_vien;
 use App\dich_vu;
+use App\su_dung_dich_vu;
 use App\the_loai;
 use App\loai_phong;
 use App\loai_ghe;
 use App\phong_chieu;
 use App\ghe_ngoi;
-use App\nhan_vien;
 use App\hoa_don;
 use App\ve;
 use Auth;
@@ -28,33 +28,33 @@ use Session;
 
 class PageController extends Controller
 { 
-    // Trang chủ
     public function getIndex()
     {
         $currentDate = Carbon\Carbon::now()->toDateString();
-        $pre_phim = phim::where('batdau','>',$currentDate)->take(5)->get();
+        $pre_phim = phim::where('batdau','>',$currentDate)->take(6)->get();
         $new_phim = phim::where('batdau','<',$currentDate)->take(6)->get();
 
         return view('pages.home', compact('new_phim','pre_phim'));
     }
-    // End trang chủ ===============================================================
-    // Nhóm trang thông tin khách hàng
+    
     public function getProfile()
     {
-        return view('page.profile');
+        return view('pages.profile');
     }
+
     public function getLichSu()
     {     
         $user_id = Auth::user()->id;                       
         $hoadon = hoa_don::where('idkh',$user_id)->get();
         
-        return view('page.lichsu',compact('hoadon'));
+        return view('pages.lichsu',compact('hoadon'));
     }
+
     public function postChiTietLichSu(Request $req)
     {
         $hoadon = hoa_don::where('mahoadon',$req['idhoadon'])->get();
         $ve = ve::where('mahoadon',$req['idhoadon'])->get();
-        
+        $sddv= su_dung_dich_vu::where('mahoadon',$req['idhoadon'])->get();
         $suatchieu = suat_chieu::where([
             ['masuatchieu',$ve->first()->masuatchieu],
         ]);
@@ -63,17 +63,12 @@ class PageController extends Controller
             $temp = ghe_ngoi::where('maghe',$v->maghe);
             $soghe[] = ($temp->first()->soghe);
         }
-         
         $phim = phim::where('maphim',$suatchieu->first()->maphim);
         $rap = rap_chieu::where('marap',$suatchieu->first()->marap);
         $khunggio = khung_gio::where('makhunggio',$suatchieu->first()->makhunggio);
-        //dd($suatchieu->first()->);
-        return view('page.chitietlichsu',compact('ve','hoadon','phim','rap','soghe','khunggio','suatchieu'));
+        return view('pages.chitietlichsu',compact('ve','hoadon','phim','rap','soghe','khunggio','suatchieu'));
     }
-    public function getPhimDaXem()
-    {
-        return view('page.phimdaxem');
-    }
+
     public function postchangePersonalData(Request $req)
     {
         $this->validate($req,
@@ -88,7 +83,7 @@ class PageController extends Controller
                 'name.max'=>'Tên không được vượt quá 50 ký tự',
                 'ngaysinh.after'=>'Ngày sinh không hợp lệ',
                 'sodt.numeric'=>'Số điện thoại không hợp lệ',
-                'sodt.digits_between'=>'Số điên thoại không hợp lệ',
+                'sodt.digits_between'=>'Số điện thoại không hợp lệ',
                 
             ]);
         
@@ -133,19 +128,7 @@ class PageController extends Controller
             }
         }      
     }
-    // End Nhóm trang thông tin người dùng =============================================
-
     
-
-    // End Nhóm trang nhân viên
-
-    // Trang thông báo lỗi
-    public function get404()
-    {
-        return view('page.404');
-    }
-    // End trang thông báo lỗi ============================================================
-    // Nhóm trang đăng nhập/ đăng kí/ đăng xuất
     public function getDangKy()
     {
         return view('pages.dangky');
@@ -178,7 +161,7 @@ class PageController extends Controller
                 'name.max'=>'Tên không được vượt quá 50 ký tự',
                 'ngaysinh.after'=>'Ngày sinh không hợp lệ',
                 'sodt.numeric'=>'Số điện thoại không hợp lệ',
-                'sodt.digits_between'=>'Số điên thoại không hợp lệ',
+                'sodt.digits_between'=>'Số điện thoại không hợp lệ',
                 'cmnd.numeric'=>'Chứng minh nhân dân vừa nhập không hợp lệ',
                 'cmnd.digits'=>'Chứng minh nhân dân vừa nhập không hợp lệ',
                 'cmnd.unique'=>'Chứng minh nhân dân này đã được sử dụng',
@@ -196,58 +179,37 @@ class PageController extends Controller
         $obj_user->save();
         return redirect()->route('trang-chu')->with('success','Tạo tài khoản thành công, vui lòng đăng nhập lại');
     }
+
     public function postSignin(Request $req)
     {
-        $boolx = false;
         $credentials = array('email'=>$req->email,'password'=>$req->password);
         if (Auth::attempt($credentials))
         {
-            $data = $req->session()->all();
-            $user = User::where('email',$req['email'])->get();
-            return redirect('/')->with('success','Đăng nhập thành công');//->with('boolx','false');
+            return redirect('/')->with('success','Đăng nhập thành công');
         }
         else
         {
-            return redirect('/')->with('error','Đăng nhập thất bại')->with('boolx','false');
+            return redirect('/')->with('error','Đăng nhập thất bại');
         }       
     }
+
     public function getDangxuat()
     {
         Auth::logout();
         return redirect()->route('trang-chu');
     }
-    // End nhóm trang đăng nhập/ đăng kí/ đăng xuất ===============================================================
-    // Nhóm trang thuộc vùng footer
-    public function getAbout()
-    {
-        return view('page.about');
-    }
+    
     public function contact()
     {
-        return view('page.contact');
+        return view('pages.contact');
     }
-    public function getFAQ()
-    {
-        return view('page.faq');
-    }
-    public function getFAQduy()
-    {
-        return view('page.faqduy');
-    }
-    // End nhóm trang thuộc vùng footer ===============================================================
-    // Nhóm trang thuộc menu Hệ thống rạp
+    
     public function heThongRap()
     {
         $rap = rap_chieu::all();
-        return view('page.hethongrap',compact('rap'));
+        return view('pages.hethongrap',compact('rap'));
     }
-    public function getRap($idRap)
-    {
-        $rap = rap_chieu::where('marap',$idRap)->get();
-        return view('page.rap',compact('rap'));
-    }
-    // End nhóm trang thuộc menu Hệ thông rạp ===============================================================
-    // Nhóm trang thuộc menu Lịch chiếu
+    
     public function phimDangChieu()
     {
         $currentDate = Carbon\Carbon::now()->toDateString();
@@ -268,8 +230,12 @@ class PageController extends Controller
         $theloai = the_loai::where('maphim',$idPhim)->get();
         return view('pages.chitiet',compact('phim','dienvien','theloai','currentDate'));
     }
-    // End nhóm trang thuộc menu Lịch chiếu ===============================================================
-    // Nhóm trang thuộc menu Mua vé
+    
+    public function getKhuyenMai(){
+        $khuyenmai = khuyen_mai::all();
+        return view('pages.khuyenmai',compact('khuyenmai'));
+    }
+
     public function getMuaVeMenu()
     {
         $currentDate = Carbon\Carbon::now()->toDateString();
@@ -282,15 +248,20 @@ class PageController extends Controller
     public function postChonPhim(Request $req)
     {
         $phimDaChon = phim::where('maphim',$req['idphim'])->get();
-        return view('page.chonphim',compact('phimDaChon'));
+        return view('pages.chonphim',compact('phimDaChon'));
+        
     }
 
     public function postChonRap(Request $req)
     {
+        if(Auth::user()){
         $phimDaChon = phim::where('maphim',$req['idphim'] )->get();
         //dd($phimDaChon);
         $rap = rap_chieu::all();
-        return view('page.chonrap',compact('phimDaChon','rap'));
+        return view('pages.chonrap',compact('phimDaChon','rap'));
+        }else{
+        return redirect('/')->with('error','Bạn cần đăng nhập để mua vé');
+        }
     }
 
     public function postChonSuatChieu(Request $req)
@@ -314,56 +285,70 @@ class PageController extends Controller
                 ['ngaychieu',$sc->ngaychieu],
                 ['maphim','=',$req['idphim']],
                 ['marap','=', $req['idrap']]
-                ])->get();
+                ])->select('ngaychieu','batdau')->distinct()->get();
         }
-        return view('page.chonsuatchieu',compact('phimDaChon','rapDaChon','kgtungngay'));
+        return view('pages.chonsuatchieu',compact('phimDaChon','rapDaChon','kgtungngay'));
 
     }
 
     public function postMuaVe(Request $req)
     {
-        $loaiphong = phong_chieu::where('marap',$req['idrap'])->get();
         $loaiphongall = loai_phong::all();
         $loaighe = loai_ghe::all();
         $dichvu = dich_vu::all();
-        //dd($req);
         $phimDaChon = phim::where('maphim',$req['idphim'])->get();
         $rapDaChon = rap_chieu::where('marap',$req['idrap'])->get();
         $ngay = $req['ngaychieu'];
         $gio = $req['giochieu'];
-        return view('page.muave',compact('phimDaChon','rapDaChon','ngay','gio','dichvu','loaiphong','loaighe','loaiphongall') );
+        $makg = khung_gio::where('batdau',$gio)->value('makhunggio');
+        $temp = DB::table('suat_chieu')->where([
+            ['ngaychieu', $ngay],
+            ['makhunggio', $makg],
+            ['maphim', $req['idphim']],
+            ['marap',$req['idrap']],
+        ])->get();
+        $loaiphong = [];
+        foreach($temp as $t){
+            $a=phong_chieu::where('maphong',$t->maphong);
+            $loaiphong[]=$a->first();
+        }
+        return view('pages.muave',compact('phimDaChon','rapDaChon','ngay','gio','dichvu','loaiphong','loaighe','loaiphongall','makg','temp') );
 
     }
 
     public function postChonGhe(Request $req)
     {
         $dichvu = dich_vu::all();
-        $phong = phong_chieu::where([
+        $giochieu = khung_gio::where('batdau','=',$req['gio'])->first();
+        $makhunggio=$giochieu['makhunggio'];
+        $loaiphong = $req['loaiphong'];
+        $maphong=phong_chieu::where([
             ['marap',$req['idrap']],
-            ['tenloai',$req['loaiphong']]
-        ])->get();
-        //dd($req['loaiphong']);
-        $tatcaghe = ghe_ngoi::where('maphong',$phong[0]->maphong)->get();
-        //dd($tatcaghe);
+            ['tenloai',$loaiphong],
+        ])->value('maphong');
+        $masuatchieu = suat_chieu::where([
+        ['ngaychieu',$req['ngay']],
+        ['makhunggio',$makhunggio],
+        ['maphim',$req['idphim']],
+        ['maphong',$maphong],
+        ])->first();
+        $tatcaghe = ghe_ngoi::where('masuatchieu',$masuatchieu['masuatchieu'])->get();
         $phimDaChon = phim::where('maphim',$req['idphim'])->get();
         $rapDaChon = rap_chieu::where('marap',$req['idrap'])->get();
         $ngay = $req['ngay'];
         $gio = $req['gio'];
         $giaghe = $req['giaghe'];
         $giadv = $req['giadv'];
-        $loaiphong = $req['loaiphong'];
-        return view('page.chonghe',compact('phimDaChon','loaiphong','rapDaChon','ngay','gio','dichvu','tatcaghe','giaghe','giadv') );
-
+        return view('pages.chonghe',compact('phimDaChon','loaiphong','rapDaChon','ngay','gio','dichvu','tatcaghe','giaghe','giadv','maphong') );
     }
 
     public function postThanhToan(Request $req)
     {
-        //dd($req);
         $currentDate = Carbon\Carbon::now()->toDateString();
         $dichvu = dich_vu::all();
         $phong = phong_chieu::where([
             ['marap',$req['idrap']],
-            ['tenloai',$req['loaiphong']]
+            ['loaiphong',$req['loaiphong']]
         ])->get();
         
         $gheso = $req['gheso'];
@@ -373,26 +358,15 @@ class PageController extends Controller
         $gio = $req['gio'];
         $loaiphong = $req['loaiphong'];
         $tongcong = $req['tongcong'];
-
-        if(Auth::user()){
-                //HOA DON
-            $user_id = Auth::user()->id;                       
-            $obj_user = User::find($user_id);
-            $hoadon = new hoa_don();
+        $user_id = Auth::user()->id;                       
+        $hoadon = new hoa_don();
+        
+        $hoadon->tongtien = $tongcong;
+        $hoadon->ngayxuat = $currentDate;
+        $hoadon->idkh = $user_id;
+        $hoadon->save();
             
-            $hoadon->tongtien = $tongcong;
-            $hoadon->ngayxuat = $currentDate;
-            $hoadon->idkh = $obj_user->id;
-            // $hoadon->idnv = 8;
-            $hoadon->save();
-
-            $hoadonx = hoa_don::where([
-                ['tongtien', $tongcong],
-                ['ngayxuat', $currentDate],
-                ['idkh', $obj_user->id],
-                // ['idnv', 8],
-            ])->get();
-            //VE
+            $hoadonx = DB::table('hoa_don')->latest('mahoadon')->limit(1);
             
             $cacghe = explode(",", $gheso);
             
@@ -400,48 +374,31 @@ class PageController extends Controller
             foreach($cacghe as $ghe1){
                 $ve = new ve();
                 $makg = khung_gio::where('batdau',$gio)->get();
-                // $ve->ngayxuat = $currentDate;
                 $temp = suat_chieu::where([
                     ['ngaychieu', $ngay],
                     ['makhunggio', $makg->first()->makhunggio],
                     ['maphim', $req['idphim']],
                     ['marap',$req['idrap']],
                 ])->get();
-                //dd($ngay);
                 $ve->masuatchieu = $temp->first()->masuatchieu;
                 $ghe = ghe_ngoi::where([
-                    ['maphong',$phong[0]->maphong],
+                    ['masuatchieu',$temp->first()->masuatchieu],
                     ['soghe', $ghe1],
                 ])->get();
                 $ve->maghe = $ghe->first()->maghe;
                 $ve->mahoadon = $hoadonx->first()->mahoadon;
                 $ve->save();
 
-                //CAP NHAT TRONG GHE_NGOI
                 DB::table('ghe_ngoi')->where('maghe', $ghe->first()->maghe)->update(['tinhtrang'=>1]);
                 
             }
 
-            
+            return view('pages.thanhtoan',compact('phimDaChon','rapDaChon','ngay','gio','dichvu','gheso','tongcong','loaiphong','phong') );
 
-
-            return view('page.thanhtoan',compact('phimDaChon','rapDaChon','ngay','gio','dichvu','gheso','tongcong','loaiphong','phong') );
-
-        }else{
-            return redirect('/')->with('error','Bạn cần đăng nhập để mua vé');
-        }
         
-        
-        
-
-
     }
-
-    // End nhóm trang thuộc menu Mua vé ============================================================
-
-    public function getKhuyenMai(){
-        $khuyenmai = khuyen_mai::all();
-        return view('page.khuyenmai',compact('khuyenmai'));
+    public function getSearch(Request $req){
+        $phim=phim::where('tenphim','like','%'.$req->search.'%')->get();
+        return view('pages.search',compact('phim'));
     }
-
 }
